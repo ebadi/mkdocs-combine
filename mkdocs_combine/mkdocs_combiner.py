@@ -132,7 +132,7 @@ class MkDocsCombiner:
                     flattened.append(
                         {
                             u'file' : list(page.values())[0],
-                            u'title': u'%s {: .page-title}' % list(page.keys())[0],
+                            u'title': u'%s {: .page-title} TOREMOVE ' % list(page.keys())[0],
                             u'level': level,
                         })
                 if type(list(page.values())[0]) is list:
@@ -140,7 +140,7 @@ class MkDocsCombiner:
                     flattened.append(
                         {
                             u'file' : None,
-                            u'title': u'%s {: .page-title}' % list(page.keys())[0],
+                            u'title': u'%s' % list(page.keys())[0],
                             u'level': level,
                         })
                     # Add children sections
@@ -150,7 +150,7 @@ class MkDocsCombiner:
                             level + 1)
                     )
         return flattened
-
+        
     def combine(self):
         """User-facing conversion method. Returns combined document as a list of lines."""
         lines = []

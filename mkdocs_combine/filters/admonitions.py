@@ -60,8 +60,22 @@ class AdmonitionFilter(adm.AdmonitionProcessor):
 
         blocks = self.blocks(lines)
         for block in blocks:
-
-            ret.extend(self.convert_admonition(block))
+            blacklist = [  ]
+            if ("!!!" in block) and (not (any(ch in blacklist for ch in block))) :
+                block = block.replace("_", " ")
+                block = block.replace("#", " ")
+                block = block.replace("**", " ")
+                block = block.replace("<br>", " ")
+                block = block.replace("\\", "\\\\\\\\")
+                block = block.replace("!!! Note", " \\notebox{ ")
+                block = block.replace("!!! note", " \\notebox{ ")
+                block = block.replace("!!! Important", " \\importantbox{ ")
+                block = block.replace("!!! important", " \\importantbox{ ")
+                block = block.replace("!!! Warning", " \\warningbox{ ")
+                block = block.replace("!!! warning", " \\warningbox{ ")
+                block = block.replace("\n", " ")
+                block = block + ' }\n'
+            ret.append(block)
 
         return ret
 
